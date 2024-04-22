@@ -1,0 +1,65 @@
+import 'dart:ffi';
+
+import 'package:mytodolist/models/tache.dart';
+import 'package:path/path.dart';
+import 'package:sqflite/sqflite.dart';
+
+class Db {
+  Future<Database> get database async {
+    final dbpath = await getDatabasesPath(); // chemin vers notre bd
+    const dbname = "tache"; // nom de la bd
+    final path = join(dbpath, dbname);
+
+    Database database =
+        await openDatabase(path, version: 1, onCreate: _createDB);
+
+    return database;
+  }
+
+  Future<void> _createDB(Database db, int version) async {
+    await db.execute('''
+      CREATE TABLE tache(
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        title TEXT,
+        isImportant INTEGER,
+        isCompleted INTEGER,
+        description TEXT,
+        echeance TEXT,
+        streetnumber INTEGER,
+        street TEXT,
+        city TEXT,
+        codePostal INTEGER
+      )
+
+    ''');
+  }
+
+  Future<void> insertTache(Tache tache) async {
+    final db = await database;
+    db.insert('tache', tache.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace);
+  }
+
+  Future<void> deleteTache(Tache tache) async {
+    final db = await database;
+    db.delete('tache', where: 'id == ?', whereArgs: [tache.id]);
+  }
+
+  Future<void> updateTache(Tache tache) async {
+    final db = await database;
+    db.update('tache', tache.toMap(), where: 'id == ?', whereArgs: [tache.id]);
+  }
+
+  Future<List<Tache>> getTache() async {
+    final db = await database;
+
+    List<Map<String, dynamic>> items =
+        await db.query('tache', orderBy: 'id DESC');
+    return List.generate(
+        items.length,
+        (index) => Tache(
+            title: items[index]['title'],
+            isImportant: items[index]['isImportant'] == 1 ? true : false,
+            isCompleted: items[index]['isCompleted'] == 1 ? true : false));
+  }
+}

@@ -4,16 +4,17 @@ import 'package:mytodolist/models/tache.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
-class Db {
+class DatabaseConnect {
+  Database? _database;
+
   Future<Database> get database async {
     final dbpath = await getDatabasesPath(); // chemin vers notre bd
-    const dbname = "tache"; // nom de la bd
+    const dbname = "tache.db"; // nom de la bd
     final path = join(dbpath, dbname);
 
-    Database database =
-        await openDatabase(path, version: 1, onCreate: _createDB);
+    _database = await openDatabase(path, version: 1, onCreate: _createDB);
 
-    return database;
+    return _database!;
   }
 
   Future<void> _createDB(Database db, int version) async {
@@ -58,6 +59,7 @@ class Db {
     return List.generate(
         items.length,
         (index) => Tache(
+            id: items[index]['id'],
             title: items[index]['title'],
             isImportant: items[index]['isImportant'] == 1 ? true : false,
             isCompleted: items[index]['isCompleted'] == 1 ? true : false));

@@ -4,10 +4,10 @@ import 'package:mytodolist/models/tache.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  var db = Db();
-  await db.insertTache(
-      Tache(title: 'tu fait bien', isImportant: false, isCompleted: false));
-  print(db.getTache());
+  var db = DatabaseConnect();
+  await db.insertTache(Tache(
+      id: 1, title: 'tu fait bien', isImportant: true, isCompleted: false));
+  print(await db.getTache());
   runApp(const MyApp());
 }
 

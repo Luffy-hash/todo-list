@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mytodolist/models/db_models.dart';
 import 'package:mytodolist/models/tache.dart';
+import 'package:mytodolist/screens/detail.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: Scaffold(),
+      home: Detail(),
     );
   }
 }

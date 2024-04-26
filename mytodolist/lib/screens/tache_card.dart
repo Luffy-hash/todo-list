@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:mytodolist/models/tache.dart';
-import 'package:mytodolist/screens/detail/homedetail.dart';
 
 class TacheCard extends StatefulWidget {
   final int id;
   final String title;
   final bool isImportant;
   final bool isCompleted;
+  final DateTime? echeance;
   final Function insertFunction;
   final Function deleteFunction;
   const TacheCard(
@@ -14,6 +14,7 @@ class TacheCard extends StatefulWidget {
       required this.title,
       required this.isImportant,
       required this.isCompleted,
+      required this.echeance,
       required this.insertFunction,
       required this.deleteFunction,
       super.key});
@@ -28,6 +29,7 @@ class _TacheCardState extends State<TacheCard> {
     var anotherTodo = Tache(
         id: widget.id,
         title: widget.title,
+        echeance: widget.echeance,
         isImportant: widget.isImportant,
         isCompleted: widget.isCompleted);
 
@@ -63,8 +65,8 @@ class _TacheCardState extends State<TacheCard> {
                 const SizedBox(
                   height: 5,
                 ),
-                const Text(
-                  'date',
+                Text(
+                  '${widget.echeance}',
                   style: TextStyle(
                       fontSize: 16,
                       color: Color(0xFF8F8F8F),

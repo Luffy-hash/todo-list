@@ -8,19 +8,32 @@ class Detail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      child: FutureBuilder(
-          future: db.getTacheById(id),
-          builder: (BuildContext context, AsyncSnapshot snapshot) {
-            var data = snapshot.data;
-            if (data.toString().isEmpty) {
-              return Center(
-                child: Text(data.toString()),
-              );
-            }
 
-            return data;
-          }),
-    );
+      return FutureBuilder(
+        future: db.getTacheById(id),
+         builder: (context, snapshot){
+             return SizedBox(
+              child: Column(
+          children: [
+             Row(children: [Text(
+            "Titre : ${snapshot.data?.title}",
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 20),
+            ),],),
+           
+            Row(children: [Text(
+            "Date : ${snapshot.data?.echeance}",
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 20),
+            ),],),
+
+            Row(children: [Text(
+            "Description : ${snapshot.data?.description}",
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 20),
+            ),],),
+            ]),
+            );
+         });
   }
 }

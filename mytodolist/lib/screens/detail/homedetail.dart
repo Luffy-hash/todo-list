@@ -57,7 +57,7 @@ class _HomepagedetailState extends State<Homepagedetail> {
                 id: argument,
               ),
               // Carte & Météo
-              const DetailMeteo()
+              DetailMeteo(id: argument)
             ],
           ),
         ));

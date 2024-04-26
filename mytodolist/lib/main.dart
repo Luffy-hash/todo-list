@@ -6,14 +6,6 @@ import './home/homepage.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  var db = DatabaseConnect();
-  await db.insertTache(Tache(
-      id: 1,
-      title: 'Plannification du mois',
-      isImportant: true,
-      isCompleted: false,
-      description: 'une description sur mesure'));
-  print(await db.getTache());
   runApp(const MyApp());
 }
 

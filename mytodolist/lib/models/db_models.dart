@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:mytodolist/models/tache.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
@@ -63,6 +61,11 @@ class DatabaseConnect {
               isImportant: items[index]['isImportant'] == 1 ? true : false,
               isCompleted: items[index]['isCompleted'] == 1 ? true : false,
               description: items[index]['description'],
+              street: items[index]['street'],
+              streetnumber: items[index]['streetnumber'],
+              city: items[index]['city'],
+              echeance: DateTime.now(), //items[index]['echeance'],
+              codePostal: items[index]['codePostal']
             ));
     return list.first;
   }
@@ -80,6 +83,11 @@ class DatabaseConnect {
               isImportant: items[index]['isImportant'] == 1 ? true : false,
               isCompleted: items[index]['isCompleted'] == 1 ? true : false,
               description: items[index]['description'],
+              street: items[index]['street'],
+              streetnumber: items[index]['streetnumber'],
+              city: items[index]['city'],
+              echeance: DateTime.now(), //items[index]['echeance'],
+              codePostal: items[index]['codePostal']
             ));
   }
 }

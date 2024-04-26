@@ -31,6 +31,7 @@ class ListeTache extends StatelessWidget {
                         title: data[index].title,
                         isImportant: data[index].isImportant,
                         isCompleted: data[index].isCompleted,
+                        echeance: data[index].echeance,
                         insertFunction: insertFunction,
                         deleteFunction: deleteFunction));
           }),

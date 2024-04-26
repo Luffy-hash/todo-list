@@ -59,9 +59,11 @@ class DatabaseConnect {
     return List.generate(
         items.length,
         (index) => Tache(
-            id: items[index]['id'],
-            title: items[index]['title'],
-            isImportant: items[index]['isImportant'] == 1 ? true : false,
-            isCompleted: items[index]['isCompleted'] == 1 ? true : false));
+              id: items[index]['id'],
+              title: items[index]['title'],
+              isImportant: items[index]['isImportant'] == 1 ? true : false,
+              isCompleted: items[index]['isCompleted'] == 1 ? true : false,
+              description: items[index]['description'],
+            ));
   }
 }

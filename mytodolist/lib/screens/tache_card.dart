@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mytodolist/models/tache.dart';
+import 'package:mytodolist/screens/detail/homedetail.dart';
 
 class TacheCard extends StatefulWidget {
   final int id;
@@ -29,61 +30,67 @@ class _TacheCardState extends State<TacheCard> {
         title: widget.title,
         isImportant: widget.isImportant,
         isCompleted: widget.isCompleted);
-    return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
-      child: Row(
-        children: [
-          Container(
-            margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            child: Checkbox(
-                value: widget.isCompleted,
-                onChanged: (bool? value) {
-                  setState(() {
-                    widget.isCompleted == value!;
-                  });
-                  anotherTodo.isCompleted = value!;
-                  widget.insertFunction(anotherTodo);
-                }),
-          ),
-          Expanded(
-              child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                widget.title,
-                style:
-                    const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-              const Text(
-                'date',
-                style: TextStyle(
-                    fontSize: 16,
-                    color: Color(0xFF8F8F8F),
-                    fontWeight: FontWeight.bold),
-              )
-            ],
-          )),
-          SizedBox(
+
+    return GestureDetector(
+      onTap: () {
+        Navigator.pushNamed(context, '/homedetail', arguments: widget.id);
+      },
+      child: Card(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
+        child: Row(
+          children: [
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               child: Checkbox(
-            value: widget.isImportant,
-            onChanged: (bool? value) {
-              setState(() {
-                widget.isImportant == value!;
-              });
-              anotherTodo.isImportant = value!;
-              widget.insertFunction(anotherTodo);
-            },
-          )),
-          IconButton(
-            onPressed: () {
-              widget.deleteFunction(anotherTodo);
-            },
-            icon: const Icon(Icons.delete),
-          )
-        ],
+                  value: widget.isCompleted,
+                  onChanged: (bool? value) {
+                    setState(() {
+                      widget.isCompleted == value!;
+                    });
+                    anotherTodo.isCompleted = value!;
+                    widget.insertFunction(anotherTodo);
+                  }),
+            ),
+            Expanded(
+                child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  widget.title,
+                  style: const TextStyle(
+                      fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                const Text(
+                  'date',
+                  style: TextStyle(
+                      fontSize: 16,
+                      color: Color(0xFF8F8F8F),
+                      fontWeight: FontWeight.bold),
+                )
+              ],
+            )),
+            SizedBox(
+                child: Checkbox(
+              value: widget.isImportant,
+              onChanged: (bool? value) {
+                setState(() {
+                  widget.isImportant == value!;
+                });
+                anotherTodo.isImportant = value!;
+                widget.insertFunction(anotherTodo);
+              },
+            )),
+            IconButton(
+              onPressed: () {
+                widget.deleteFunction(anotherTodo);
+              },
+              icon: const Icon(Icons.delete),
+            )
+          ],
+        ),
       ),
     );
   }

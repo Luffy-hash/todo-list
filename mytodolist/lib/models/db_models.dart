@@ -51,6 +51,22 @@ class DatabaseConnect {
     db.update('tache', tache.toMap(), where: 'id == ?', whereArgs: [tache.id]);
   }
 
+  Future<Tache> getTacheById(int id) async {
+    final db = await database;
+    List<Map<String, dynamic>> items =
+        await db.query('tache', where: "id = ?", whereArgs: [id]);
+    List<Tache> list = List.generate(
+        items.length,
+        (index) => Tache(
+              id: items[index]['id'],
+              title: items[index]['title'],
+              isImportant: items[index]['isImportant'] == 1 ? true : false,
+              isCompleted: items[index]['isCompleted'] == 1 ? true : false,
+              description: items[index]['description'],
+            ));
+    return list.first;
+  }
+
   Future<List<Tache>> getTache() async {
     final db = await database;
 

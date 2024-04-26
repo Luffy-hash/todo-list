@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mytodolist/models/db_models.dart';
 import 'package:mytodolist/models/tache.dart';
+import 'package:mytodolist/screens/detail/homedetail.dart';
 import './home/homepage.dart';
 
 void main() async {
@@ -22,9 +23,11 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    Tache tache;
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Homepage(),
+      home: const Homepage(),
+      routes: {'/homedetail': (context) => const Homepagedetail()},
     );
   }
 }

@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:mytodolist/models/db_models.dart';
 import 'package:mytodolist/models/tache.dart';
+import './home/homepage.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   var db = DatabaseConnect();
   await db.insertTache(Tache(
-      id: 1, title: 'tu fait bien', isImportant: true, isCompleted: false));
+      id: 1,
+      title: 'Plannification du mois',
+      isImportant: true,
+      isCompleted: false,
+      description: 'une description sur mesure'));
   print(await db.getTache());
   runApp(const MyApp());
 }
@@ -18,7 +23,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: Scaffold(),
+      debugShowCheckedModeBanner: false,
+      home: Homepage(),
     );
   }
 }

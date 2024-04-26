@@ -50,6 +50,6 @@ class Tache {
   // test db
   @override
   String toString() {
-    return "Tache(title: $title, isImportant: $isImportant, isCompleted: $isCompleted)";
+    return "Tache(title: $title, isImportant: $isImportant, isCompleted: $isCompleted, description: $description, echeance: $echeance, street: $street, city: $city)";
   }
 }

@@ -12,23 +12,43 @@ class DetailMeteo extends StatelessWidget {
   Widget build(BuildContext context) {
     return FutureBuilder(
         future: db.getTacheById(id),
-         builder: (context, snapshot){
-             return SizedBox(
-              child: Column(
-          children: [
-             Row(children: [Text(
-            "Adresse : ${snapshot.data?.streetnumber} ${snapshot.data?.street}, ${snapshot.data?.codePostal} ${snapshot.data?.city}",
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 20),
-            ),],),
-           
-            const Row(children: [Text(
-            "carte ici"),],),
-
-            const Row(children: [Text(
-            "température + icone ici"),],),
-            ]),
-            );
-         });
+        builder: (context, snapshot) {
+          return SizedBox(
+            child: (snapshot.data?.street != null)
+                ? Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                        Container(
+                          margin: const EdgeInsets.all(16.0),
+                          child: Text(
+                            "Adresse : ${snapshot.data?.streetnumber} ${snapshot.data?.street}, ${snapshot.data?.codePostal} ${snapshot.data?.city}",
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(fontSize: 20),
+                          ),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.all(16.0),
+                          child: const Text("Carte"),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.all(16.0),
+                          child: const Text("Données météo"),
+                        )
+                      ])
+                : const SizedBox(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          height: 350,
+                        ),
+                        Text("Vous n'avez pas renseigner d'adresse",
+                            style: TextStyle(
+                                fontSize: 22, fontWeight: FontWeight.bold)),
+                      ],
+                    ),
+                  ),
+          );
+        });
   }
 }

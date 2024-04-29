@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mytodolist/models/db_models.dart';
+import 'package:mytodolist/models/tache.dart';
 import 'package:mytodolist/screens/detail/screensdetail/detail.dart';
 import 'package:mytodolist/screens/detail/screensdetail/detailmeteo.dart';
 
@@ -18,11 +19,10 @@ class _HomepagedetailState extends State<Homepagedetail> {
   Widget build(BuildContext context) {
     // argument partager
     final argument = (ModalRoute.of(context)?.settings.arguments ?? '') as int;
-    print(argument);
 
-    // fonction get element by id
-    void getItemById() async {
-      await db.getTacheById(argument);
+    // fonction de modif
+    void updateItem(Tache tache) async {
+      await db.updateTache(tache);
       setState(() {});
     }
 
@@ -36,7 +36,7 @@ class _HomepagedetailState extends State<Homepagedetail> {
             backgroundColor: Colors.greenAccent,
             bottom: const TabBar(tabs: [
               Tab(
-                text: 'Details Tache',
+                text: 'Details Tâche',
               ),
               Tab(
                 text: 'Carte & Météo',
@@ -46,7 +46,12 @@ class _HomepagedetailState extends State<Homepagedetail> {
               IconButton(
                   onPressed: () {},
                   icon: const Icon(Icons.radio_button_checked)),
-              IconButton(onPressed: () {}, icon: const Icon(Icons.edit)),
+              IconButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, "/updateUserInput",
+                        arguments: argument);
+                  },
+                  icon: const Icon(Icons.edit)),
               IconButton(onPressed: () {}, icon: const Icon(Icons.delete))
             ],
           ),

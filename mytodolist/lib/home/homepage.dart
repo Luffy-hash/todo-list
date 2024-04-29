@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mytodolist/models/db_models.dart';
 import 'package:mytodolist/models/tache.dart';
 import 'package:mytodolist/screens/tacheComplet.dart';
-import 'package:mytodolist/screens/tacheFiltre.dart';
+import 'package:mytodolist/screens/userinputsearch.dart';
 import '../screens/userinput.dart';
 import '../screens/list_tache.dart';
 
@@ -32,7 +32,7 @@ class _HomepageState extends State<Homepage> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-        length: 3,
+        length: 2,
         child: Scaffold(
           backgroundColor: const Color(0xFFF5EBFF),
           appBar: AppBar(
@@ -46,9 +46,6 @@ class _HomepageState extends State<Homepage> {
               Tab(
                 text: 'Tâche Complètes',
               ),
-              Tab(
-                text: 'Filtres',
-              )
             ]),
           ),
           body: TabBarView(
@@ -57,8 +54,6 @@ class _HomepageState extends State<Homepage> {
               ListeTache(insertFunction: addItem, deleteFunction: deleteItem),
               // mes tache complete
               const TacheComplet(),
-              // mes filtres
-              const TacheFiltre()
             ],
           ),
           floatingActionButton: FloatingActionButton(

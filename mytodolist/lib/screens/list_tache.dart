@@ -27,13 +27,14 @@ class ListeTache extends StatelessWidget {
                 : ListView.builder(
                     itemCount: dataLength,
                     itemBuilder: (context, index) => TacheCard(
-                        id: data[index].id,
-                        title: data[index].title,
-                        isImportant: data[index].isImportant,
-                        isCompleted: data[index].isCompleted,
-                        echeance: data[index].echeance,
-                        insertFunction: insertFunction,
-                        deleteFunction: deleteFunction));
+                          id: data[index].id,
+                          title: data[index].title,
+                          isImportant: data[index].isImportant,
+                          isCompleted: data[index].isCompleted,
+                          echeance: data[index].echeance,
+                          insertFunction: insertFunction,
+                          deleteFunction: deleteFunction,
+                        ));
           }),
     );
   }

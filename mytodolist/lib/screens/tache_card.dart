@@ -35,7 +35,7 @@ class _TacheCardState extends State<TacheCard> {
 
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, '/homedetail', arguments: widget.id);
+        Navigator.pushNamed(context, '/homedetail', arguments: anotherTodo.id);
       },
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
@@ -67,7 +67,7 @@ class _TacheCardState extends State<TacheCard> {
                 ),
                 Text(
                   '${widget.echeance}',
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontSize: 16,
                       color: Color(0xFF8F8F8F),
                       fontWeight: FontWeight.bold),

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mytodolist/models/tache.dart';
 
-
-
 class UserInput extends StatefulWidget {
   final Function insertFunction; // il recevra notre fonction addItem
   const UserInput({required this.insertFunction, super.key});
@@ -145,20 +143,19 @@ class _UserInputState extends State<UserInput> {
             ),
             GestureDetector(
               onTap: () {
-                if(dateController.text == Null){
+                if (dateController.text == Null) {
                   dateController.text == '';
                 }
                 var myTodo = Tache(
-                  title: textController.text,
-                  isImportant: false,
-                  isCompleted: false,
-                  description: descController.text,
-                  streetnumber: int.parse(streetNumberController.text),
-                  street: streetController.text,
-                  city: cityController.text,
-                  echeance: DateTime.parse(dateController.text),
-                  codePostal: int.parse(codePostalController.text)
-                );
+                    title: textController.text,
+                    isImportant: false,
+                    isCompleted: false,
+                    description: descController.text,
+                    streetnumber: int.parse(streetNumberController.text),
+                    street: streetController.text,
+                    city: cityController.text,
+                    echeance: DateTime.parse(dateController.text),
+                    codePostal: int.parse(codePostalController.text));
                 // on passe myTodo à la fonction insertFunction
                 widget.insertFunction(myTodo);
                 Navigator.pop(context);

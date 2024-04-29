@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mytodolist/models/db_models.dart';
-import 'package:mytodolist/models/tache.dart';
 import 'package:mytodolist/screens/detail/homedetail.dart';
-import 'package:mytodolist/screens/detail/screensdetail/updateuserinput.dart';
 import './home/homepage.dart';
 
 void main() async {

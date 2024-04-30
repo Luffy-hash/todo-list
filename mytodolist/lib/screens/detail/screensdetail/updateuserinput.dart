@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:mytodolist/models/db_models.dart';
 import 'package:mytodolist/models/tache.dart';
 
@@ -86,19 +87,6 @@ class _UpdateUserInputState extends State<UpdateUserInput> {
                                           const Icon(Icons.calendar_today),
                                     ),
                                     readOnly: true,
-                                    onTap: () async {
-                                      DateTime? picker = await showDatePicker(
-                                          context: this.context,
-                                          initialDate: DateTime.now(),
-                                          firstDate: DateTime(2000),
-                                          lastDate: DateTime(2100));
-                                      if (picker != null) {
-                                        setState(() {
-                                          echeanceUpdateController.text =
-                                              picker.toString();
-                                        });
-                                      }
-                                    },
                                   )
                                 : TextField(
                                     controller: descUpdateController,
@@ -183,20 +171,16 @@ class _UpdateUserInputState extends State<UpdateUserInput> {
                         GestureDetector(
                           onTap: () {
                             var myUpdateTodo = Tache(
-                                id: idArgsUpdate,
-                                title: titleUpdateController.text,
-                                isImportant: false,
-                                isCompleted: false,
-                                description: descUpdateController.text,
-                                echeance: DateTime.parse(
-                                    echeanceUpdateController.text),
-                                streetnumber: int.parse(
-                                    streetNumberUpdateController.text),
-                                street: streetUpdateController.text,
-                                city: cityUpdateController.text,
-                                codePostal:
-                                    int.parse(codePostalUpdateController.text));
+                              id: idArgsUpdate,
+                              title: titleUpdateController.text,
+                              isImportant: false,
+                              isCompleted: false,
+                              description: descUpdateController.text,
+                              street: streetUpdateController.text,
+                              city: cityUpdateController.text,
+                            );
                             widget.updateFunction(myUpdateTodo);
+                            Navigator.pop(context);
                           },
                           child: Container(
                             color: Colors.greenAccent,

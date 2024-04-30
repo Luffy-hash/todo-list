@@ -59,9 +59,23 @@ class DetailMeteo extends StatelessWidget {
                           child: const Text("Carte"),
                         ),
                         Container(
-                          margin: const EdgeInsets.all(16.0),
-                          child: const Text("Données météo"),
-                        )
+                            margin: const EdgeInsets.all(16.0),
+                            child: Builder(
+                              builder: ((context) {
+                                var ville = snapshot.data?.city;
+                                if (ville != null && ville.isNotEmpty) {
+                                  _obtenirMeteo(ville);
+                                  return (Column(children: [
+                                    Text(
+                                        "Min : ${_min}, Act : ${_moy}, Max : ${_max}"),
+                                    Image.network(
+                                        "http://openweathermap.org/img/w/${_icon}.png")
+                                  ]));
+                                } else {
+                                  return const Text("Pas de ville entrée");
+                                }
+                              }),
+                            ))
                       ])
                 : const SizedBox(
                     child: Column(

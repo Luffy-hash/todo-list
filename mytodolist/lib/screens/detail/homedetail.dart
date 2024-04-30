@@ -20,12 +20,6 @@ class _HomepagedetailState extends State<Homepagedetail> {
     // argument partager
     final argument = (ModalRoute.of(context)?.settings.arguments ?? '') as int;
 
-    // fonction de modif
-    void updateItem(Tache tache) async {
-      await db.updateTache(tache);
-      setState(() {});
-    }
-
     return DefaultTabController(
         length: 2,
         child: Scaffold(

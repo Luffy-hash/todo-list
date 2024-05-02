@@ -41,7 +41,7 @@ class _HomepagedetailState extends State<Homepagedetail> {
                   icon: const Icon(Icons.radio_button_checked)),
               IconButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, "/updateUserInput",
+                      Navigator.pushNamed(context, "/updateUserInput",
                         arguments: argument);
                   },
                   icon: const Icon(Icons.edit)),

@@ -25,6 +25,8 @@ class _DetailMeteoState extends State<DetailMeteo> {
 
   LatLng _coords = LatLng(46.6061, 1.8752);
 
+  bool _mapCreated = false;
+
   Set<Marker> location = Set();
 
   //marche pas pour l'instant donc valeur par défaut
@@ -34,8 +36,11 @@ class _DetailMeteoState extends State<DetailMeteo> {
 
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
+    setState(() {
+     _mapCreated = true;
+    });
   }
-
+  //TODO update map quand on update l'adresse
   Future<void> _getLatLong(String address) async {
 
     final api = "AIzaSyDhYXaBrAlrKAUj_Mjbyvc4bAPebVFIy3A";
@@ -131,7 +136,7 @@ class _DetailMeteoState extends State<DetailMeteo> {
                           height: 200,
                           width: 350,
                           child: Builder(builder: (context){
-                            if(snapshot.data != null && _coords.latitude == 46.6061){
+                            if(snapshot.data != null && _mapCreated){
                                 var fulladdress = "${snapshot.data!.streetnumber} ${snapshot.data!.street}, ${snapshot.data!.codePostal} ${snapshot.data!.city}";
                                 _getLatLong(fulladdress);
                             }

@@ -1,21 +1,24 @@
 import 'package:flutter/material.dart';
 
-class UserInputSearch extends StatelessWidget {
-  const UserInputSearch({super.key});
+class UserInputSearch extends StatefulWidget {
+  UserInputSearch({super.key});
 
+  List<String> list = <String>['One', 'Two', 'Three', 'Four'];
+
+  @override
+  State<UserInputSearch> createState() => _UserInputSearchState();
+}
+
+class _UserInputSearchState extends State<UserInputSearch> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
+      width: 300,
       child: Expanded(
           child: Row(
+            
         children: [
-          TextField(
-            decoration: const InputDecoration(hintText: "Rechercher"),
-          ),
-          GestureDetector(
-            onTap: () {},
-            child: const Icon(Icons.search),
-          )
+          Text("filtre")
         ],
       )),
     );

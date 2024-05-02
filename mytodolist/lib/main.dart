@@ -23,7 +23,6 @@ class _MyAppState extends State<MyApp> {
   // fonction de modif
   void updateItem(Tache tache) async {
     await db.updateTache(tache);
-    setState(() {});
   }
 
   // This widget is the root of your application.

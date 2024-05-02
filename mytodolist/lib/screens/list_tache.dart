@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mytodolist/screens/userinputsearch.dart';
 import '../models/db_models.dart';
 import '../screens/tache_card.dart';
 
@@ -24,7 +25,9 @@ class ListeTache extends StatelessWidget {
                 ? const Center(
                     child: Text("pas de tâche"),
                   )
-                : ListView.builder(
+                : Column(
+                  children: [UserInputSearch(),
+                  ListView.builder(
                     itemCount: dataLength,
                     itemBuilder: (context, index) => TacheCard(
                           id: data[index].id,
@@ -34,7 +37,9 @@ class ListeTache extends StatelessWidget {
                           echeance: data[index].echeance,
                           insertFunction: insertFunction,
                           deleteFunction: deleteFunction,
-                        ));
+                        ))],
+                );
+                
           }),
     );
   }

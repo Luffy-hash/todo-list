@@ -4,12 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:mytodolist/models/db_models.dart';
 import 'package:http/http.dart' as http;
 
+import '../../../models/tache.dart';
 import 'detail.dart';
 
 class DetailMeteo extends StatefulWidget {
   final int id;
   DetailMeteo({super.key, required this.id});
 
+ 
   @override
   State<DetailMeteo> createState() => _DetailMeteoState();
 }

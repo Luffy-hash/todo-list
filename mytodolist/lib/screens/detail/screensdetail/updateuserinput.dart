@@ -240,7 +240,7 @@ class _UpdateUserInputState extends State<UpdateUserInput> {
                             setState(() {
                               widget.updateFunction(myUpdateTodo);
                             });
-                            Navigator.pop(context);
+                            Navigator.pushNamedAndRemoveUntil(context, "/homedetail",ModalRoute.withName('/'),arguments: myUpdateTodo.id);
                           },
                           child: Container(
                             color: Colors.greenAccent,

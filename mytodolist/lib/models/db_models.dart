@@ -56,17 +56,16 @@ class DatabaseConnect {
     List<Tache> list = List.generate(
         items.length,
         (index) => Tache(
-              id: items[index]['id'],
-              title: items[index]['title'],
-              isImportant: items[index]['isImportant'] == 1 ? true : false,
-              isCompleted: items[index]['isCompleted'] == 1 ? true : false,
-              description: items[index]['description'],
-              street: items[index]['street'],
-              streetnumber: items[index]['streetnumber'],
-              city: items[index]['city'],
-              echeance: DateTime.now(), //items[index]['echeance'],
-              codePostal: items[index]['codePostal']
-            ));
+            id: items[index]['id'],
+            title: items[index]['title'],
+            isImportant: items[index]['isImportant'] == 1 ? true : false,
+            isCompleted: items[index]['isCompleted'] == 1 ? true : false,
+            description: items[index]['description'],
+            street: items[index]['street'],
+            streetnumber: items[index]['streetnumber'],
+            city: items[index]['city'],
+            echeance: items[index]['echeance'], //items[index]['echeance'],
+            codePostal: items[index]['codePostal']));
     return list.first;
   }
 
@@ -78,16 +77,15 @@ class DatabaseConnect {
     return List.generate(
         items.length,
         (index) => Tache(
-              id: items[index]['id'],
-              title: items[index]['title'],
-              isImportant: items[index]['isImportant'] == 1 ? true : false,
-              isCompleted: items[index]['isCompleted'] == 1 ? true : false,
-              description: items[index]['description'],
-              street: items[index]['street'],
-              streetnumber: items[index]['streetnumber'],
-              city: items[index]['city'],
-              echeance: DateTime.now(), //items[index]['echeance'],
-              codePostal: items[index]['codePostal']
-            ));
+            id: items[index]['id'],
+            title: items[index]['title'],
+            isImportant: items[index]['isImportant'] == 1 ? true : false,
+            isCompleted: items[index]['isCompleted'] == 1 ? true : false,
+            description: items[index]['description'],
+            street: items[index]['street'],
+            streetnumber: items[index]['streetnumber'],
+            city: items[index]['city'],
+            echeance: items[index]['echeance'], //items[index]['echeance'],
+            codePostal: items[index]['codePostal']));
   }
 }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:mytodolist/models/db_models.dart';
-import 'package:mytodolist/models/tache.dart';
 import 'package:mytodolist/screens/detail/screensdetail/detail.dart';
 import 'package:mytodolist/screens/detail/screensdetail/detailmeteo.dart';
 

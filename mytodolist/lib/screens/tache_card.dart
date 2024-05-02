@@ -7,7 +7,7 @@ class TacheCard extends StatefulWidget {
   final String title;
   final bool isImportant;
   final bool isCompleted;
-  final DateTime? echeance;
+  final String? echeance;
   final Function insertFunction;
   final Function deleteFunction;
   const TacheCard(
@@ -77,7 +77,7 @@ class _TacheCardState extends State<TacheCard> {
               ],
             )),
             SizedBox(
-                child: Checkbox(
+                child: Switch(
               value: widget.isImportant,
               onChanged: (bool? value) {
                 setState(() {

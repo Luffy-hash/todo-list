@@ -1,19 +1,26 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:mytodolist/models/db_models.dart';
 
-class Detail extends StatelessWidget {
+class Detail extends StatefulWidget {
   final int id;
-  Detail({
+  const Detail({
     super.key,
     required this.id,
   });
 
+  @override
+  State<Detail> createState() => _DetailState();
+}
+
+class _DetailState extends State<Detail> {
   final db = DatabaseConnect();
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: db.getTacheById(id),
+        future: db.getTacheById(widget.id),
         builder: (context, snapshot) {
           return SizedBox(
             height: 45,
@@ -22,29 +29,26 @@ class Detail extends StatelessWidget {
               Container(
                 margin: const EdgeInsets.all(16.0),
                 child: Text(
-                  "Titre : ${snapshot.data?.title}",
-                  textAlign: TextAlign.center,
+                  "${snapshot.data?.title}",
                   style: const TextStyle(
-                      fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.all(16.0),
-                child: Text(
-                  "Date : ${snapshot.data?.echeance}",
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(fontSize: 20),
+                      fontSize: 28, fontWeight: FontWeight.bold),
                 ),
               ),
               Container(
                   margin: const EdgeInsets.all(16.0),
                   child: (snapshot.data?.description != null)
                       ? Text(
-                          "Description : ${snapshot.data?.description}",
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(fontSize: 20),
+                          "${snapshot.data?.description}",
+                          style: const TextStyle(fontSize: 25),
                         )
                       : const Text("")),
+              Container(
+                margin: const EdgeInsets.all(16.0),
+                child: Text(
+                  "${snapshot.data?.echeance}",
+                  style: const TextStyle(fontSize: 25),
+                ),
+              ),
             ]),
           );
         });

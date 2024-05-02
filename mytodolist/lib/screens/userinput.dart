@@ -10,7 +10,7 @@ class UserInput extends StatefulWidget {
 }
 
 class _UserInputState extends State<UserInput> {
-  final double containerMarginTextField = 16.0;
+  final double containerMarginTextField = 12.0;
 
   // titre
   var textController = TextEditingController();
@@ -33,6 +33,18 @@ class _UserInputState extends State<UserInput> {
   // code postal
   var codePostalController = TextEditingController();
 
+  final _formKey = GlobalKey<FormState>();
+
+  // fonction parsing String to int
+  int? convertStringToInt(String string) {
+    if (string.isNotEmpty) {
+      int value = int.parse(string);
+      return value;
+    }
+
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,15 +59,18 @@ class _UserInputState extends State<UserInput> {
         ),
         body: Column(
           children: <Widget>[
-            const SizedBox(
-              height: 20,
-            ),
             Container(
               margin: EdgeInsets.all(containerMarginTextField),
-              child: TextField(
+              child: TextFormField(
                 controller: textController,
                 decoration:
                     const InputDecoration(hintText: "Entrez une phrase *"),
+                validator: (value) {
+                  if (value == null || value.isNotEmpty) {
+                    return "Ce champs est requis!";
+                  }
+                  return null;
+                },
               ),
             ),
             Container(
@@ -78,7 +93,7 @@ class _UserInputState extends State<UserInput> {
                 readOnly: true,
                 onTap: () async {
                   DateTime? picker = await showDatePicker(
-                      context: this.context,
+                      context: context,
                       initialDate: DateTime.now(),
                       firstDate: DateTime(2000),
                       lastDate: DateTime(2100));
@@ -115,7 +130,7 @@ class _UserInputState extends State<UserInput> {
               child: TextField(
                 controller: streetController,
                 decoration:
-                    const InputDecoration(hintText: 'Adresse complète '),
+                    const InputDecoration(hintText: 'Adresse compléte '),
               ),
             ),
             Container(
@@ -143,21 +158,27 @@ class _UserInputState extends State<UserInput> {
             ),
             GestureDetector(
               onTap: () {
-                if (dateController.text == Null) {
-                  dateController.text == '';
-                }
+                int? streetNumberIns =
+                    convertStringToInt(streetNumberController.text);
+                int? codePostalIns =
+                    convertStringToInt(codePostalController.text);
+
+                print(dateController.text);
+
                 var myTodo = Tache(
                     title: textController.text,
                     isImportant: false,
                     isCompleted: false,
                     description: descController.text,
-                    streetnumber: int.parse(streetNumberController.text),
+                    echeance: dateController.text,
+                    streetnumber: streetNumberIns,
                     street: streetController.text,
                     city: cityController.text,
-                    echeance: DateTime.parse(dateController.text),
-                    codePostal: int.parse(codePostalController.text));
+                    codePostal: codePostalIns);
                 // on passe myTodo à la fonction insertFunction
-                widget.insertFunction(myTodo);
+                setState(() {
+                  widget.insertFunction(myTodo);
+                });
                 Navigator.pop(context);
               },
               child: Container(

@@ -26,8 +26,7 @@ class ListeTache extends StatelessWidget {
                 ? const Center(
                     child: Text("pas de tâche"),
                   )
-                : Column(
-                  children: [UserInputSearch(),
+                : 
                   ListView.builder(
                     itemCount: dataLength,
                     itemBuilder: (context, index) => TacheCard(
@@ -35,12 +34,12 @@ class ListeTache extends StatelessWidget {
                           title: data[index].title,
                           isImportant: data[index].isImportant,
                           isCompleted: data[index].isCompleted,
-                          echeance: (data[index].echeance != null)
-                              ? data[index].echeance
-                              : "",
+                          echeance: (data[index].echeance == null)
+                              ? const Text("")                              
+                              : data[index].echeance.split(' ')[0],
                           insertFunction: insertFunction,
                           deleteFunction: deleteFunction,
-                        ))],
+                        ),
                 );
                 
           }),

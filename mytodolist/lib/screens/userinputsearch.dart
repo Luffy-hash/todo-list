@@ -18,7 +18,6 @@ class _UserInputSearchState extends State<UserInputSearch> {
           child: Row(
             
         children: [
-          Text("filtre")
         ],
       )),
     );

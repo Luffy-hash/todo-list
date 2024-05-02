@@ -98,10 +98,8 @@ class _DetailMeteoState extends State<DetailMeteo> {
                           margin: const EdgeInsets.all(16.0),
                           child: Builder(builder: (context) 
                           {
-                            if(snapshot.data?.city == null || snapshot.data?.city == "" ||
-                            snapshot.data?.street == null || snapshot.data?.street == "" ||
-                            snapshot.data?.streetnumber == null || 
-                            snapshot.data?.codePostal == null){
+                            if((snapshot.data?.city == null || snapshot.data?.city == "") &&
+                            (snapshot.data?.street == null || snapshot.data?.street == "")){
                               return const SizedBox(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import '../models/db_models.dart';
 import '../screens/tache_card.dart';
 
@@ -31,7 +32,9 @@ class ListeTache extends StatelessWidget {
                           title: data[index].title,
                           isImportant: data[index].isImportant,
                           isCompleted: data[index].isCompleted,
-                          echeance: data[index].echeance,
+                          echeance: (data[index].echeance != null)
+                              ? data[index].echeance
+                              : "",
                           insertFunction: insertFunction,
                           deleteFunction: deleteFunction,
                         ));

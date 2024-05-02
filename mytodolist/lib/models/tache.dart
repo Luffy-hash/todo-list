@@ -1,11 +1,10 @@
-
 class Tache {
   int? id;
   String title;
   bool isImportant;
   bool isCompleted;
   String? description;
-  DateTime? echeance;
+  String? echeance;
   int? streetnumber;
   String? street;
   String? city;
@@ -37,8 +36,8 @@ class Tache {
           ? 1
           : 0, // soit il est complet ou pas (supporte pas type bool sqlite)
       'description': description,
-      'echeance': echeance
-          .toString(), // sqlite ne supporte pas le type datetime il faut le convertir en string
+      'echeance':
+          echeance, // sqlite ne supporte pas le type datetime il faut le convertir en string
       'streetnumber': streetnumber,
       'street': street,
       'city': city,

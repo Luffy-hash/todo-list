@@ -34,6 +34,16 @@ class _UpdateUserInputState extends State<UpdateUserInput> {
 
     var codePostalUpdateController = TextEditingController();
 
+    // fonction parsing String to int
+    int? convertStringToInt(String string) {
+      if (string.isNotEmpty) {
+        int value = int.parse(string);
+        return value;
+      }
+
+      return null;
+    }
+
     return Scaffold(
       backgroundColor: const Color(0xFFF5EBFF),
       appBar: AppBar(
@@ -58,8 +68,8 @@ class _UpdateUserInputState extends State<UpdateUserInput> {
                           margin: const EdgeInsets.all(16.0),
                           child: TextField(
                             controller: titleUpdateController,
-                            decoration: InputDecoration(
-                                label: Text(snapshot.data!.title)),
+                            decoration:
+                                InputDecoration(hintText: snapshot.data!.title),
                           ),
                         ),
                         Container(
@@ -73,7 +83,7 @@ class _UpdateUserInputState extends State<UpdateUserInput> {
                                 : TextField(
                                     controller: descUpdateController,
                                     decoration: const InputDecoration(
-                                        hintText: "Donnez votre description"),
+                                        hintText: "Description"),
                                   )),
                         Container(
                             margin: const EdgeInsets.all(16.0),
@@ -87,6 +97,19 @@ class _UpdateUserInputState extends State<UpdateUserInput> {
                                           const Icon(Icons.calendar_today),
                                     ),
                                     readOnly: true,
+                                    onTap: () async {
+                                      DateTime? picker = await showDatePicker(
+                                          context: this.context,
+                                          initialDate: DateTime.now(),
+                                          firstDate: DateTime(2000),
+                                          lastDate: DateTime(2100));
+                                      if (picker != null) {
+                                        setState(() {
+                                          echeanceUpdateController.text =
+                                              picker.toString();
+                                        });
+                                      }
+                                    },
                                   )
                                 : TextField(
                                     controller: descUpdateController,
@@ -117,7 +140,7 @@ class _UpdateUserInputState extends State<UpdateUserInput> {
                                           .toString()),
                                 )
                               : TextField(
-                                  controller: descUpdateController,
+                                  controller: streetNumberUpdateController,
                                   decoration: const InputDecoration(
                                       hintText: "N° de rue"),
                                 ),
@@ -131,7 +154,7 @@ class _UpdateUserInputState extends State<UpdateUserInput> {
                                       hintText: snapshot.data!.street),
                                 )
                               : TextField(
-                                  controller: descUpdateController,
+                                  controller: streetUpdateController,
                                   decoration: const InputDecoration(
                                       hintText: "Adresse compléte"),
                                 ),
@@ -145,7 +168,7 @@ class _UpdateUserInputState extends State<UpdateUserInput> {
                                       hintText: snapshot.data!.city),
                                 )
                               : TextField(
-                                  controller: descUpdateController,
+                                  controller: cityUpdateController,
                                   decoration:
                                       const InputDecoration(hintText: "Ville"),
                                 ),
@@ -160,7 +183,7 @@ class _UpdateUserInputState extends State<UpdateUserInput> {
                                           snapshot.data!.codePostal.toString()),
                                 )
                               : TextField(
-                                  controller: descUpdateController,
+                                  controller: codePostalUpdateController,
                                   decoration: const InputDecoration(
                                       hintText: "Code Postal"),
                                 ),
@@ -170,16 +193,39 @@ class _UpdateUserInputState extends State<UpdateUserInput> {
                         ),
                         GestureDetector(
                           onTap: () {
+                            int? streetNumberUpd = convertStringToInt(
+                                streetNumberUpdateController.text);
+                            int? codePostalUpd = convertStringToInt(
+                                codePostalUpdateController.text);
+
+                            if (titleUpdateController.text.isEmpty) {
+                              titleUpdateController.text = snapshot.data!.title;
+                            }
+
+                            if (descUpdateController.text.isEmpty) {
+                              descUpdateController.text =
+                                  snapshot.data!.description!;
+                            }
+
+                            if (echeanceUpdateController.text.isEmpty) {
+                              echeanceUpdateController.text =
+                                  snapshot.data!.echeance!;
+                            }
+
                             var myUpdateTodo = Tache(
-                              id: idArgsUpdate,
-                              title: titleUpdateController.text,
-                              isImportant: false,
-                              isCompleted: false,
-                              description: descUpdateController.text,
-                              street: streetUpdateController.text,
-                              city: cityUpdateController.text,
-                            );
-                            widget.updateFunction(myUpdateTodo);
+                                id: idArgsUpdate,
+                                title: titleUpdateController.text,
+                                isImportant: false,
+                                isCompleted: false,
+                                description: descUpdateController.text,
+                                echeance: echeanceUpdateController.text,
+                                streetnumber: streetNumberUpd,
+                                street: streetUpdateController.text,
+                                city: cityUpdateController.text,
+                                codePostal: codePostalUpd);
+                            setState(() {
+                              widget.updateFunction(myUpdateTodo);
+                            });
                             Navigator.pop(context);
                           },
                           child: Container(

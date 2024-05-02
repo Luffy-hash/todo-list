@@ -17,7 +17,7 @@ class ListeTache extends StatelessWidget {
     return SizedBox(
       height: 20,
       child: FutureBuilder(
-          future: db.getTache(),
+          future: db.getTacheNotCompleted(),
           initialData: const [],
           builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
             var data = snapshot.data;

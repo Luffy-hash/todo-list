@@ -53,7 +53,7 @@ class _HomepageState extends State<Homepage> {
               // liste de mes taches
               ListeTache(insertFunction: addItem, deleteFunction: deleteItem),
               // mes tache complete
-              const TacheComplet(),
+              ListeTacheComplete(insertFunction: addItem, deleteFunction: deleteItem),
             ],
           ),
           floatingActionButton: FloatingActionButton(

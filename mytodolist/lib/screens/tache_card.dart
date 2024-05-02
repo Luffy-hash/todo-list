@@ -36,9 +36,72 @@ class _TacheCardState extends State<TacheCard> {
 
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, '/homedetail', arguments: anotherTodo.id);
+        if(! widget.isCompleted){
+            Navigator.pushNamed(context, '/homedetail', arguments: anotherTodo.id);
+        }
       },
-      child: Card(
+      child: 
+      (widget.isCompleted)
+      ? Card(
+        color: Colors.grey,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
+        child: Row(
+          children: [
+            
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              child: Checkbox(
+                  value: widget.isCompleted,
+                  onChanged: (bool? value) {
+                    setState(() {
+                      widget.isCompleted == value!;
+                    });
+                    anotherTodo.isCompleted = value!;
+                    widget.insertFunction(anotherTodo);
+                  }),
+            ),
+            Expanded(
+                child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  widget.title,
+                  style: const TextStyle(
+                      fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                Text(
+                  '${widget.echeance}',
+                  style: const TextStyle(
+                      fontSize: 16,
+                      color: Color(0xFF8F8F8F),
+                      fontWeight: FontWeight.bold),
+                )
+              ],
+            )),
+            SizedBox(
+                child: Switch(
+              value: widget.isImportant,
+              onChanged: (bool? value) {
+                setState(() {
+                  widget.isImportant == value!;
+                });
+                anotherTodo.isImportant = value!;
+                widget.insertFunction(anotherTodo);
+              },
+            )),
+            IconButton(
+              onPressed: () {
+                widget.deleteFunction(anotherTodo);
+              },
+              icon: const Icon(Icons.delete),
+            )
+          ],
+        ),
+      )
+      :Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
         child: Row(
           children: [
@@ -96,6 +159,7 @@ class _TacheCardState extends State<TacheCard> {
           ],
         ),
       ),
+      
     );
   }
 }

@@ -69,6 +69,46 @@ class DatabaseConnect {
     return list.first;
   }
 
+  Future<List<Tache>> getTacheCompleted() async {
+    final db = await database;
+    List<Map<String, dynamic>> items =
+        await db.query('tache', where: "isCompleted = 1");
+    List<Tache> list = List.generate(
+        items.length,
+        (index) => Tache(
+            id: items[index]['id'],
+            title: items[index]['title'],
+            isImportant: items[index]['isImportant'] == 1 ? true : false,
+            isCompleted: items[index]['isCompleted'] == 1 ? true : false,
+            description: items[index]['description'],
+            street: items[index]['street'],
+            streetnumber: items[index]['streetnumber'],
+            city: items[index]['city'],
+            echeance: items[index]['echeance'], //items[index]['echeance'],
+            codePostal: items[index]['codePostal']));
+    return list;
+  }
+
+  Future<List<Tache>> getTacheNotCompleted() async {
+    final db = await database;
+    List<Map<String, dynamic>> items =
+        await db.query('tache', where: "isCompleted = 0");
+    List<Tache> list = List.generate(
+        items.length,
+        (index) => Tache(
+            id: items[index]['id'],
+            title: items[index]['title'],
+            isImportant: items[index]['isImportant'] == 1 ? true : false,
+            isCompleted: items[index]['isCompleted'] == 1 ? true : false,
+            description: items[index]['description'],
+            street: items[index]['street'],
+            streetnumber: items[index]['streetnumber'],
+            city: items[index]['city'],
+            echeance: items[index]['echeance'], //items[index]['echeance'],
+            codePostal: items[index]['codePostal']));
+    return list;
+  }
+
   Future<List<Tache>> getTache() async {
     final db = await database;
 

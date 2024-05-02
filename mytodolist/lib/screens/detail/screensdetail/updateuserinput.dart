@@ -87,11 +87,10 @@ class _UpdateUserInputState extends State<UpdateUserInput> {
                                   )),
                         Container(
                             margin: const EdgeInsets.all(16.0),
-                            child: (snapshot.data!.echeance != null)
-                                ? TextField(
+                            child: TextField(
                                     controller: echeanceUpdateController,
                                     decoration: InputDecoration(
-                                      labelText:
+                                      hintText:
                                           snapshot.data!.echeance.toString(),
                                       prefixIcon:
                                           const Icon(Icons.calendar_today),
@@ -111,12 +110,7 @@ class _UpdateUserInputState extends State<UpdateUserInput> {
                                       }
                                     },
                                   )
-                                : TextField(
-                                    controller: descUpdateController,
-                                    decoration: const InputDecoration(
-                                        hintText:
-                                            "Une date d'écheance s'il vous plaît!"),
-                                  )),
+                                ),
                         const SizedBox(
                           height: 25,
                           width: 470,
@@ -127,7 +121,7 @@ class _UpdateUserInputState extends State<UpdateUserInput> {
                                 fontSize: 28,
                               ),
                               textAlign: TextAlign.left,
-                            ),
+                              ),
                           ),
                         ),
                         Container(
@@ -202,7 +196,7 @@ class _UpdateUserInputState extends State<UpdateUserInput> {
                               titleUpdateController.text = snapshot.data!.title;
                             }
 
-                            if (descUpdateController.text.isEmpty) {
+                            if (descUpdateController.text.isEmpty ) {
                               descUpdateController.text =
                                   snapshot.data!.description!;
                             }
@@ -210,6 +204,26 @@ class _UpdateUserInputState extends State<UpdateUserInput> {
                             if (echeanceUpdateController.text.isEmpty) {
                               echeanceUpdateController.text =
                                   snapshot.data!.echeance!;
+                            }
+
+                            if (streetUpdateController.text.isEmpty ) {
+                              streetUpdateController.text =
+                                  snapshot.data!.street!;
+                            }
+
+                            if (streetNumberUpdateController.text.isEmpty ) {
+                              streetNumberUpd =
+                                  snapshot.data!.streetnumber!;
+                            }
+
+                            if (codePostalUpdateController.text.isEmpty ) {
+                              codePostalUpd =
+                                  snapshot.data!.codePostal!;
+                            }
+
+                            if (cityUpdateController.text.isEmpty ) {
+                              cityUpdateController.text =
+                                  snapshot.data!.city!;
                             }
 
                             var myUpdateTodo = Tache(

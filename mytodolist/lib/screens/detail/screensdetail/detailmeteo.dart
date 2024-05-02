@@ -81,7 +81,9 @@ class _DetailMeteoState extends State<DetailMeteo> {
       }
       
     } else {
-      throw Exception('Echec lors de la récupération des données');
+      setState(() {
+        _max = 9999;
+      });
     }
   }
 
@@ -150,13 +152,17 @@ class _DetailMeteoState extends State<DetailMeteo> {
                                   if(_min == 0 && _moy == 0 && _max == 0 ){
                                     _obtenirMeteo(ville);
                                   }
-                                  
-                                  return (Column(children: [
+                                  if(_max != 9999){
+                                    return (Column(children: [
                                     Text(
                                         "Min : ${_min}, Act : ${_moy}, Max : ${_max}"),
                                     Image.network(
                                         "http://openweathermap.org/img/w/${_icon}.png")
-                                  ]));
+                                    ]));
+                                  }
+                                  else{
+                                    return const Text("Ville invalide");
+                                  }
                                 } else {
                                   return const Text("Pas de ville entrée");
                                 }

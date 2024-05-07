@@ -193,7 +193,7 @@ class _UserInputState extends State<UserInput> {
               child: Container(
                 color: Colors.greenAccent,
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 210, vertical: 18),
+                    const EdgeInsets.symmetric(horizontal: 140, vertical: 10),
                 child: const Text(
                   "Créer tâche",
                   style: TextStyle(fontSize: 18),

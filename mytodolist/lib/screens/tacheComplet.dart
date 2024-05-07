@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mytodolist/screens/userinputsearch.dart';
 import 'package:intl/intl.dart';
 import '../models/db_models.dart';
 import '../screens/tache_card.dart';
-
+//pareil que la liste des taches mais seulement celles complétées
 class ListeTacheComplete extends StatelessWidget {
   var db = DatabaseConnect();
   final Function insertFunction;

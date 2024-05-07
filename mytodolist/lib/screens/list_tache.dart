@@ -27,7 +27,7 @@ class _ListeTacheState extends State<ListeTache> {
     super.initState();
     filterTask();
   }
-
+  //récupère une liste de tache différente selon le filtre actuel
   Future<List<Tache>> filterTask() async {
     if (selectedFilter == "importance") {
       resultFilterData = await db.getTacheOrderImportant();
@@ -79,6 +79,7 @@ class _ListeTacheState extends State<ListeTache> {
                       });
                     },
                     items:
+                  //menu filtres
                         filterTitlesList.map<DropdownMenuItem<String>>((value) {
                       return DropdownMenuItem(value: value, child: Text(value));
                     }).toList(),
@@ -88,6 +89,7 @@ class _ListeTacheState extends State<ListeTache> {
             ],
           ),
         ),
+        //liste des taches
         Expanded(
           child: FutureBuilder(
               future: filterTask(),
@@ -108,6 +110,7 @@ class _ListeTacheState extends State<ListeTache> {
                 } else {
                   return ListView.builder(
                     itemCount: snapshot.data!.length,
+                    //objet tache card dans la liste
                     itemBuilder: (context, index) => TacheCard(
                       id: snapshot.data![index].id,
                       title: snapshot.data![index].title,

@@ -32,7 +32,7 @@ class DatabaseConnect {
 
     ''');
   }
-
+  
   Future<void> insertTache(Tache tache) async {
     final db = await database;
     db.insert('tache', tache.toMap(),

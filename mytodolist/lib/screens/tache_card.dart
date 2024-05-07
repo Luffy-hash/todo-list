@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mytodolist/models/tache.dart';
-
+//objet dans la liste des taches
 class TacheCard extends StatefulWidget {
   final int id;
   final String title;
@@ -26,6 +26,7 @@ class TacheCard extends StatefulWidget {
 class _TacheCardState extends State<TacheCard> {
   @override
   Widget build(BuildContext context) {
+    //on garde uniquement
     var anotherTodo = Tache(
         id: widget.id,
         title: widget.title,
@@ -35,11 +36,13 @@ class _TacheCardState extends State<TacheCard> {
 
     return GestureDetector(
       onTap: () {
+        //si la tache n'est pas complétée on peut aller voir les détails
         if (!widget.isCompleted) {
           Navigator.pushNamed(context, '/homedetail',
               arguments: anotherTodo.id);
         }
       },
+      //si c'est complété on met l'objet en grisé 
       child: (widget.isCompleted)
           ? Card(
               color: Colors.grey,
@@ -101,6 +104,7 @@ class _TacheCardState extends State<TacheCard> {
                 ],
               ),
             )
+          //sinon il n'est pas grisé 
           : Card(
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(0)),

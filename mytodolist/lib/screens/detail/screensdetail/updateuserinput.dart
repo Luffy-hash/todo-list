@@ -198,8 +198,10 @@ class _UpdateUserInputState extends State<UpdateUserInput> {
                               }
 
                               if (descUpdateController.text.isEmpty) {
-                                descUpdateController.text =
-                                    snapshot.data!.description!;
+                                if (snapshot.data!.description != null) {
+                                  descUpdateController.text =
+                                      snapshot.data!.description!;
+                                }
                               }
 
                               if (echeanceUpdateController.text.isEmpty) {
@@ -229,7 +231,7 @@ class _UpdateUserInputState extends State<UpdateUserInput> {
                                 cityUpdateController.text =
                                     snapshot.data!.city!;
                               }
-
+                              //création de la "nouvelle" tache
                               var myUpdateTodo = Tache(
                                   id: idArgsUpdate,
                                   title: titleUpdateController.text,
@@ -244,6 +246,7 @@ class _UpdateUserInputState extends State<UpdateUserInput> {
                               setState(() {
                                 widget.updateFunction(myUpdateTodo);
                               });
+                              //lorsque la tache est ajoutée on revient a la page de détail principale pour laisser la carte s'update
                               Navigator.pushNamedAndRemoveUntil(context,
                                   "/homedetail", ModalRoute.withName('/'),
                                   arguments: myUpdateTodo.id);

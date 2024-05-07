@@ -82,6 +82,7 @@ class _UpdateUserInputState extends State<UpdateUserInput> {
                                       controller: descUpdateController,
                                       decoration: InputDecoration(
                                           hintText: snapshot.data!.description),
+                                      maxLines: 3,
                                     )
                                   : TextField(
                                       controller: descUpdateController,
@@ -210,8 +211,10 @@ class _UpdateUserInputState extends State<UpdateUserInput> {
                               }
 
                               if (streetUpdateController.text.isEmpty) {
-                                streetUpdateController.text =
-                                    snapshot.data!.street!;
+                                if (snapshot.data!.street != null) {
+                                  streetUpdateController.text =
+                                      snapshot.data!.street!;
+                                }
                               }
 
                               if (streetNumberUpdateController.text.isEmpty) {
@@ -228,8 +231,10 @@ class _UpdateUserInputState extends State<UpdateUserInput> {
                               }
 
                               if (cityUpdateController.text.isEmpty) {
-                                cityUpdateController.text =
-                                    snapshot.data!.city!;
+                                if (snapshot.data!.city != null) {
+                                  cityUpdateController.text =
+                                      snapshot.data!.city!;
+                                }
                               }
                               //création de la "nouvelle" tache
                               var myUpdateTodo = Tache(

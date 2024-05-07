@@ -182,12 +182,59 @@ class _DetailMeteoState extends State<DetailMeteo> {
                             }
                             //si la veleur de max est 9999 ça veut dire qu'on a un erreur et donc on affiche rien
                             if (_max != 9999) {
-                              return (Column(children: [
-                                Text(
-                                    "Min : ${_min}, Act : ${_moy}, Max : ${_max}"),
-                                Image.network(
-                                    "http://openweathermap.org/img/w/${_icon}.png")
-                              ]));
+                              return (Column(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.stretch,
+                                  children: [
+                                    Container(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 5, vertical: 8),
+                                      child: Row(
+                                        children: [
+                                          Container(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 30, vertical: 55),
+                                            child: Image.network(
+                                              "http://openweathermap.org/img/w/${_icon}.png",
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                          Expanded(
+                                              child: Container(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 5),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  "${_moy}°",
+                                                  style: const TextStyle(
+                                                    fontSize: 58,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  snapshot.data!.city!,
+                                                  style: const TextStyle(
+                                                      fontSize: 18),
+                                                ),
+                                                Text(
+                                                  "Min : ${_min}",
+                                                  style: const TextStyle(
+                                                      fontSize: 18),
+                                                ),
+                                                Text(
+                                                  "Max : ${_max}",
+                                                  style: const TextStyle(
+                                                      fontSize: 18),
+                                                ),
+                                              ],
+                                            ),
+                                          )),
+                                        ],
+                                      ),
+                                    ),
+                                  ]));
                             } else {
                               return const Text("");
                             }

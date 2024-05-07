@@ -18,7 +18,7 @@ class DetailMeteo extends StatefulWidget {
 
 class _DetailMeteoState extends State<DetailMeteo> {
   var db = DatabaseConnect();
-
+  //initiialisation des variables de la page
   double _min = 0;
 
   double _moy = 0;
@@ -26,23 +26,22 @@ class _DetailMeteoState extends State<DetailMeteo> {
   double _max = 0;
 
   LatLng _coords = LatLng(46.6061, 1.8752);
-
+  
   bool _mapCreated = false;
 
   Set<Marker> location = Set();
-
-  //marche pas pour l'instant donc valeur par défaut
+  //image par défaut pour éviter de lancer une requête avec un nom vide
   var _icon = "10n";
 
   late GoogleMapController mapController;
-
+  //initialise la carte google 
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
     setState(() {
      _mapCreated = true;
     });
   }
-  //TODO update map quand on update l'adresse
+  //récupère la latitude et la longitute de l'adresse passée en paramètres
   Future<void> _getLatLong(String address) async {
 
     final api = "AIzaSyDhYXaBrAlrKAUj_Mjbyvc4bAPebVFIy3A";
@@ -53,6 +52,7 @@ class _DetailMeteoState extends State<DetailMeteo> {
     if (reponse.statusCode == 200) {
       Map<String, dynamic> data = json.decode(reponse.body);
       if(mounted){
+        //si on des résultats on change la position de la caméra ainsi que le marker
         if(data['status'] != "ZERO_RESULTS"){
           setState(() {
             _coords = LatLng(data["results"][0]["geometry"]["location"]["lat"], data["results"][0]["geometry"]["location"]["lng"]);
@@ -67,7 +67,7 @@ class _DetailMeteoState extends State<DetailMeteo> {
       print('erreur');
     }
   }
-
+  //récupère la météo de la vile passée en paramètre
   Future<void> _obtenirMeteo(String city) async {
       const apiKey =
         '8a2197bbb3b34282c157fa4019483f44'; // La clé API à demander sur OpenWeatherMap
@@ -75,7 +75,7 @@ class _DetailMeteoState extends State<DetailMeteo> {
         'https://api.openweathermap.org/data/2.5/weather?q=$city&appid=$apiKey&units=metric&lang=fr';
 
     final reponse = await http.get(Uri.parse(apiUrl));
-
+    //si la requête a aboutie on update les données de température
     if (reponse.statusCode == 200) {
       Map<String, dynamic> meteoData = json.decode(reponse.body);
       if(mounted){
@@ -100,90 +100,97 @@ class _DetailMeteoState extends State<DetailMeteo> {
         future: db.getTacheById(widget.id),
         builder: (context, snapshot) {
           return SizedBox(
-            child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                        Container(
-                          margin: const EdgeInsets.all(16.0),
-                          child: Builder(builder: (context) 
-                          {
-                            if((snapshot.data?.city == null || snapshot.data?.city == "") &&
-                            (snapshot.data?.street == null || snapshot.data?.street == "")){
-                              return const SizedBox(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
+            child: SingleChildScrollView(
+              child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Vous n'avez pas renseigné d'adresse ou adresse invalide",
-                            style: TextStyle(
-                                fontSize: 22, fontWeight: FontWeight.bold)),
-                      ],
-                    ),
-                  );
-                            }else{
-                              return SizedBox(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text("${snapshot.data?.streetnumber} ${snapshot.data?.street}, ${snapshot.data?.codePostal} ${snapshot.data?.city}",
-                            style: const TextStyle(
-                                fontSize: 22, fontWeight: FontWeight.bold)),
-                      ],
-                    ),
-                  );
-                            }
-                          },),
-                          
-                        ),
-                        Container(
-                          height: 200,
-                          width: 350,
-                          child: Builder(builder: (context){
-                            if(snapshot.data != null && _mapCreated){
-                                var fulladdress = "${snapshot.data!.streetnumber} ${snapshot.data!.street}, ${snapshot.data!.codePostal} ${snapshot.data!.city}";
-                                _getLatLong(fulladdress);
-                            }
-                            if((snapshot.data?.city == null || snapshot.data?.city == "") &&
-                            (snapshot.data?.street == null || snapshot.data?.street == "")){
-                              return const Text("");
-                            }
-                            else{
-                              _coords = _coords;
-                              return GoogleMap(onMapCreated: _onMapCreated,
-                              initialCameraPosition: 
-                              CameraPosition(target: _coords,zoom:11),
-                              markers: location,);
+                          Container(
+                            margin: const EdgeInsets.all(16.0),
+                            child: Builder(builder: (context) 
+                            {
+                              //si la ville ET la rue ne sont pas indiquées on affiche juste un texte 
+                              if((snapshot.data?.city == null || snapshot.data?.city == "") &&
+                              (snapshot.data?.street == null || snapshot.data?.street == "")){
+                                return const SizedBox(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text("Vous n'avez pas renseigné d'adresse ou adresse invalide",
+                              style: TextStyle(
+                                  fontSize: 22, fontWeight: FontWeight.bold)),
+                        ],
+                      ),
+                    );
+                              }else{
+                                return SizedBox(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text("${snapshot.data?.streetnumber} ${snapshot.data?.street}, ${snapshot.data?.codePostal} ${snapshot.data?.city}",
+                              style: const TextStyle(
+                                  fontSize: 22, fontWeight: FontWeight.bold)),
+                        ],
+                      ),
+                    );
+                              }
+                            },),
+                            
+                          ),
+                          Container(
+                            height: 200,
+                            width: 350,
+                            child: Builder(builder: (context){
+                              //si la map est créée alors on peut effectuer des changements sur celle ci
+                              if(snapshot.data != null && _mapCreated){
+                                  var fulladdress = "${snapshot.data!.streetnumber} ${snapshot.data!.street}, ${snapshot.data!.codePostal} ${snapshot.data!.city}";
+                                  _getLatLong(fulladdress);
+                              }
+                              if((snapshot.data?.city == null || snapshot.data?.city == "") &&
+                              (snapshot.data?.street == null || snapshot.data?.street == "")){
+                                return const Text("");
+                              }
+                              //si on a au moins une ville ou une adresse on affiche la carte
+                              else{
+                                _coords = _coords;
+                                return GoogleMap(onMapCreated: _onMapCreated,
+                                initialCameraPosition: 
+                                CameraPosition(target: _coords,zoom:11),
+                                markers: location,);
+                                
+                              }
                               
                             }
-                            
-                          }
-                          ,)
-                        ),
-                        Container(
-                            margin: const EdgeInsets.all(16.0),
-                            child: Builder(
-                              builder: ((context) {
-                                var ville = snapshot.data?.city;
-                                if (ville != null && ville.isNotEmpty) {
-                                  if(_min == 0 && _moy == 0 && _max == 0 ){
-                                    _obtenirMeteo(ville);
-                                  }
-                                  if(_max != 9999){
-                                    return (Column(children: [
-                                    Text(
-                                        "Min : ${_min}, Act : ${_moy}, Max : ${_max}"),
-                                    Image.network(
-                                        "http://openweathermap.org/img/w/${_icon}.png")
-                                    ]));
-                                  }
-                                  else{
+                            ,)
+                          ),
+                          Container(
+                              margin: const EdgeInsets.all(16.0),
+                              child: Builder(
+                                builder: ((context) {
+                                  var ville = snapshot.data?.city;
+                                  if (ville != null && ville.isNotEmpty) {
+                                    //si les valeurs sont toujours celle de base on fait la requete pour la meteo
+                                    if(_min == 0 && _moy == 0 && _max == 0 ){
+                                      _obtenirMeteo(ville);
+                                    }
+                                    //si la veleur de max est 9999 ça veut dire qu'on a un erreur et donc on affiche rien
+                                    if(_max != 9999){
+                                      return (Column(children: [
+                                      Text(
+                                          "Min : ${_min}, Act : ${_moy}, Max : ${_max}"),
+                                      Image.network(
+                                          "http://openweathermap.org/img/w/${_icon}.png")
+                                      ]));
+                                    }
+                                    else{
+                                      return const Text("");
+                                    }
+                                  } else {
                                     return const Text("");
                                   }
-                                } else {
-                                  return const Text("");
-                                }
-                              }),
-                            ))
-                      ])
+                                }),
+                              ))
+                        ]),
+            )
                  
           );
         });

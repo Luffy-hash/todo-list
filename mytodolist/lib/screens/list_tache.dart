@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:mytodolist/models/tache.dart';
-import 'package:mytodolist/screens/userinputsearch.dart';
-import 'package:intl/intl.dart';
 import '../models/db_models.dart';
 import '../screens/tache_card.dart';
 
@@ -41,40 +39,39 @@ class _ListeTacheState extends State<ListeTache> {
     return resultFilterData;
   }
 
-  List<Tache> filterList() {
-    if (selectedFilter == null) {
-      return resultFilterData;
-    } else if (selectedFilter == 'importance') {
-      resultFilterData.where((element) => element.isImportant);
-      return resultFilterData;
-    } else if (selectedFilter == 'Date echéance') {
-      resultFilterData
-          .where((element) => element.echeance!.contains(element.echeance!));
-      return resultFilterData;
-    }
-
-    return resultFilterData;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Container(
-          margin: const EdgeInsets.all(16.0),
-          child: DropdownButton<String>(
-            hint: const Text("Je trie par :?"),
-            value: selectedFilter,
-            onChanged: (String? value) {
-              setState(() {
-                selectedFilter = value!;
-              });
-            },
-            items: filterTitlesList.map<DropdownMenuItem<String>>((value) {
-              return DropdownMenuItem(value: value, child: Text(value));
-            }).toList(),
-          ),
+        Row(
+          children: [
+            Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                child: const Text("Trier la tache")),
+            const SizedBox(
+              width: 10,
+            ),
+            Expanded(
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 5),
+                child: DropdownButton<String>(
+                  hint: const Text("Toutes mes tâches incomplètes"),
+                  value: selectedFilter,
+                  onChanged: (String? value) {
+                    setState(() {
+                      selectedFilter = value!;
+                    });
+                  },
+                  items:
+                      filterTitlesList.map<DropdownMenuItem<String>>((value) {
+                    return DropdownMenuItem(value: value, child: Text(value));
+                  }).toList(),
+                ),
+              ),
+            ),
+          ],
         ),
         Expanded(
           child: FutureBuilder(

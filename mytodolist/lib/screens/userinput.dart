@@ -33,8 +33,6 @@ class _UserInputState extends State<UserInput> {
   // code postal
   var codePostalController = TextEditingController();
 
-  final _formKey = GlobalKey<FormState>();
-
   // fonction parsing String to int
   int? convertStringToInt(String string) {
     if (string.isNotEmpty) {
@@ -65,12 +63,6 @@ class _UserInputState extends State<UserInput> {
                 controller: textController,
                 decoration:
                     const InputDecoration(hintText: "Entrez une phrase *"),
-                validator: (value) {
-                  if (value == null || value.isNotEmpty) {
-                    return "Ce champs est requis!";
-                  }
-                  return null;
-                },
               ),
             ),
             Container(
@@ -176,10 +168,27 @@ class _UserInputState extends State<UserInput> {
                     city: cityController.text,
                     codePostal: codePostalIns);
                 // on passe myTodo à la fonction insertFunction
-                setState(() {
-                  widget.insertFunction(myTodo);
-                });
-                Navigator.pop(context);
+                if (myTodo.title.isEmpty) {
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        Future.delayed(const Duration(seconds: 1), () {
+                          Navigator.of(context).pop();
+                        });
+                        return const AlertDialog(
+                          title: Text("Error champs requis "),
+                          content: Text(
+                              "Il faut renseinger obligatoirement le titre"),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.all(Radius.zero)),
+                        );
+                      });
+                } else {
+                  setState(() {
+                    widget.insertFunction(myTodo);
+                  });
+                  Navigator.pop(context);
+                }
               },
               child: Container(
                 color: Colors.greenAccent,

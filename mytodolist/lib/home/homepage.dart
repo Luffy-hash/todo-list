@@ -36,7 +36,7 @@ class _HomepageState extends State<Homepage> {
         child: Scaffold(
           backgroundColor: const Color(0xFFF5EBFF),
           appBar: AppBar(
-            title: const Text(""),
+            title: const Text("TODO LIST"),
             centerTitle: true,
             backgroundColor: Colors.greenAccent,
             bottom: const TabBar(tabs: [
@@ -53,7 +53,8 @@ class _HomepageState extends State<Homepage> {
               // liste de mes taches
               ListeTache(insertFunction: addItem, deleteFunction: deleteItem),
               // mes tache complete
-              ListeTacheComplete(insertFunction: addItem, deleteFunction: deleteItem),
+              ListeTacheComplete(
+                  insertFunction: addItem, deleteFunction: deleteItem),
             ],
           ),
           floatingActionButton: FloatingActionButton(

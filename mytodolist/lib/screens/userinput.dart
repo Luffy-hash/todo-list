@@ -172,7 +172,7 @@ class _UserInputState extends State<UserInput> {
                   showDialog(
                       context: context,
                       builder: (context) {
-                        Future.delayed(const Duration(seconds: 1), () {
+                        Future.delayed(const Duration(seconds: 3), () {
                           Navigator.of(context).pop();
                         });
                         return const AlertDialog(

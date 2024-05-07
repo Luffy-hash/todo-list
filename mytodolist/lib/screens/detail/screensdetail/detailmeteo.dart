@@ -113,7 +113,7 @@ class _DetailMeteoState extends State<DetailMeteo> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Text("Vous n'avez pas renseigné d'adresse",
+                        Text("Vous n'avez pas renseigné d'adresse ou adresse invalide",
                             style: TextStyle(
                                 fontSize: 22, fontWeight: FontWeight.bold)),
                       ],
@@ -142,11 +142,19 @@ class _DetailMeteoState extends State<DetailMeteo> {
                                 var fulladdress = "${snapshot.data!.streetnumber} ${snapshot.data!.street}, ${snapshot.data!.codePostal} ${snapshot.data!.city}";
                                 _getLatLong(fulladdress);
                             }
-                            _coords = _coords;
-                            return GoogleMap(onMapCreated: _onMapCreated,
-                            initialCameraPosition: 
-                            CameraPosition(target: _coords,zoom:6),
-                            markers: location,);
+                            if((snapshot.data?.city == null || snapshot.data?.city == "") &&
+                            (snapshot.data?.street == null || snapshot.data?.street == "")){
+                              return const Text("");
+                            }
+                            else{
+                              _coords = _coords;
+                              return GoogleMap(onMapCreated: _onMapCreated,
+                              initialCameraPosition: 
+                              CameraPosition(target: _coords,zoom:11),
+                              markers: location,);
+                              
+                            }
+                            
                           }
                           ,)
                         ),
@@ -168,10 +176,10 @@ class _DetailMeteoState extends State<DetailMeteo> {
                                     ]));
                                   }
                                   else{
-                                    return const Text("Ville invalide");
+                                    return const Text("");
                                   }
                                 } else {
-                                  return const Text("Pas de ville entrée");
+                                  return const Text("");
                                 }
                               }),
                             ))

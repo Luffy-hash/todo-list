@@ -24,7 +24,7 @@ class _HomepagedetailState extends State<Homepagedetail> {
         child: Scaffold(
           backgroundColor: const Color(0xFFF5EBFF),
           appBar: AppBar(
-            title: const Text("Detail Carte & Météo Tâche"),
+            title: const Text("Details de la tâche"),
             centerTitle: false,
             backgroundColor: Colors.greenAccent,
             bottom: const TabBar(tabs: [
@@ -37,15 +37,11 @@ class _HomepagedetailState extends State<Homepagedetail> {
             ]),
             actions: [
               IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.radio_button_checked)),
-              IconButton(
                   onPressed: () {
                       Navigator.pushNamed(context, "/updateUserInput",
                         arguments: argument);
                   },
                   icon: const Icon(Icons.edit)),
-              IconButton(onPressed: () {}, icon: const Icon(Icons.delete))
             ],
           ),
           body: TabBarView(

@@ -44,35 +44,50 @@ class _ListeTacheState extends State<ListeTache> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Row(
-          children: [
-            Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                child: const Text("Trier la tache")),
-            const SizedBox(
-              width: 10,
-            ),
-            Expanded(
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 5),
-                child: DropdownButton<String>(
-                  hint: const Text("Toutes mes tâches incomplètes"),
-                  value: selectedFilter,
-                  onChanged: (String? value) {
-                    setState(() {
-                      selectedFilter = value!;
-                    });
-                  },
-                  items:
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 8),
+          child: Row(
+            children: [
+              Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                  child: const Text(
+                    "Trier la tache",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 28,
+                    ),
+                  )),
+              const SizedBox(
+                width: 10,
+              ),
+              Expanded(
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 5),
+                  child: DropdownButton<String>(
+                    hint: const Text(
+                      "Toutes mes tâches incomplètes",
+                      style:
+                          TextStyle(fontSize: 15, fontStyle: FontStyle.italic),
+                    ),
+                    icon: const Icon(Icons.import_export_sharp),
+                    isExpanded: true,
+                    value: selectedFilter,
+                    onChanged: (String? value) {
+                      setState(() {
+                        selectedFilter = value!;
+                      });
+                    },
+                    items:
                   //menu filtres
-                      filterTitlesList.map<DropdownMenuItem<String>>((value) {
-                    return DropdownMenuItem(value: value, child: Text(value));
-                  }).toList(),
+                        filterTitlesList.map<DropdownMenuItem<String>>((value) {
+                      return DropdownMenuItem(value: value, child: Text(value));
+                    }).toList(),
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
         //liste des taches
         Expanded(

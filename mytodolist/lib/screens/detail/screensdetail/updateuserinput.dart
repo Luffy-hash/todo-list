@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:mytodolist/models/db_models.dart';
 import 'package:mytodolist/models/tache.dart';
 
@@ -56,24 +55,24 @@ class _UpdateUserInputState extends State<UpdateUserInput> {
       ),
       body: SizedBox(
         child: FutureBuilder(
-          //on récupère la tache concernée
+            //on récupère la tache concernée
             future: db.getTacheById(idArgsUpdate),
             builder: (context, snapshot) {
               var data = snapshot.hasData;
 
               return data
                   ? SingleChildScrollView(
-                    child: Column(
-                      //pour chaque champ on affiche en hint la valur actuelle, si le champ est vide,
-                      //la valeur restera la même sinon il prendra la nouvelle valeur
+                      child: Column(
+                        //pour chaque champ on affiche en hint la valur actuelle, si le champ est vide,
+                        //la valeur restera la même sinon il prendra la nouvelle valeur
                         children: [
                           const SizedBox(height: 20),
                           Container(
                             margin: const EdgeInsets.all(16.0),
                             child: TextField(
                               controller: titleUpdateController,
-                              decoration:
-                                  InputDecoration(hintText: snapshot.data!.title),
+                              decoration: InputDecoration(
+                                  hintText: snapshot.data!.title),
                             ),
                           ),
                           Container(
@@ -92,29 +91,26 @@ class _UpdateUserInputState extends State<UpdateUserInput> {
                           Container(
                               margin: const EdgeInsets.all(16.0),
                               child: TextField(
-                                      controller: echeanceUpdateController,
-                                      decoration: InputDecoration(
-                                        hintText:
-                                            snapshot.data!.echeance.toString(),
-                                        prefixIcon:
-                                            const Icon(Icons.calendar_today),
-                                      ),
-                                      readOnly: true,
-                                      onTap: () async {
-                                        DateTime? picker = await showDatePicker(
-                                            context: this.context,
-                                            initialDate: DateTime.now(),
-                                            firstDate: DateTime(2000),
-                                            lastDate: DateTime(2100));
-                                        if (picker != null) {
-                                          setState(() {
-                                            echeanceUpdateController.text =
-                                                picker.toString();
-                                          });
-                                        }
-                                      },
-                                    )
-                                  ),
+                                controller: echeanceUpdateController,
+                                decoration: InputDecoration(
+                                  hintText: snapshot.data!.echeance.toString(),
+                                  prefixIcon: const Icon(Icons.calendar_today),
+                                ),
+                                readOnly: true,
+                                onTap: () async {
+                                  DateTime? picker = await showDatePicker(
+                                      context: this.context,
+                                      initialDate: DateTime.now(),
+                                      firstDate: DateTime(2000),
+                                      lastDate: DateTime(2100));
+                                  if (picker != null) {
+                                    setState(() {
+                                      echeanceUpdateController.text =
+                                          picker.toString();
+                                    });
+                                  }
+                                },
+                              )),
                           const SizedBox(
                             height: 25,
                             width: 470,
@@ -125,7 +121,7 @@ class _UpdateUserInputState extends State<UpdateUserInput> {
                                   fontSize: 28,
                                 ),
                                 textAlign: TextAlign.left,
-                                ),
+                              ),
                             ),
                           ),
                           Container(
@@ -167,8 +163,8 @@ class _UpdateUserInputState extends State<UpdateUserInput> {
                                   )
                                 : TextField(
                                     controller: cityUpdateController,
-                                    decoration:
-                                        const InputDecoration(hintText: "Ville"),
+                                    decoration: const InputDecoration(
+                                        hintText: "Ville"),
                                   ),
                           ),
                           Container(
@@ -177,8 +173,8 @@ class _UpdateUserInputState extends State<UpdateUserInput> {
                                 ? TextField(
                                     controller: codePostalUpdateController,
                                     decoration: InputDecoration(
-                                        hintText:
-                                            snapshot.data!.codePostal.toString()),
+                                        hintText: snapshot.data!.codePostal
+                                            .toString()),
                                   )
                                 : TextField(
                                     controller: codePostalUpdateController,
@@ -195,47 +191,45 @@ class _UpdateUserInputState extends State<UpdateUserInput> {
                                   streetNumberUpdateController.text);
                               int? codePostalUpd = convertStringToInt(
                                   codePostalUpdateController.text);
-                    
+
                               if (titleUpdateController.text.isEmpty) {
-                                titleUpdateController.text = snapshot.data!.title;
+                                titleUpdateController.text =
+                                    snapshot.data!.title;
                               }
-                    
-                              if (descUpdateController.text.isEmpty ) {
+
+                              if (descUpdateController.text.isEmpty) {
                                 descUpdateController.text =
                                     snapshot.data!.description!;
                               }
-                    
+
                               if (echeanceUpdateController.text.isEmpty) {
                                 echeanceUpdateController.text =
                                     snapshot.data!.echeance!;
                               }
-                    
-                              if (streetUpdateController.text.isEmpty ) {
+
+                              if (streetUpdateController.text.isEmpty) {
                                 streetUpdateController.text =
                                     snapshot.data!.street!;
                               }
-                    
-                              if (streetNumberUpdateController.text.isEmpty ) {
-                                if(snapshot.data!.streetnumber != null){
+
+                              if (streetNumberUpdateController.text.isEmpty) {
+                                if (snapshot.data!.streetnumber != null) {
                                   streetNumberUpd =
-                                    snapshot.data!.streetnumber!;
+                                      snapshot.data!.streetnumber!;
                                 }
-                                
                               }
-                    
-                              if (codePostalUpdateController.text.isEmpty ) {
-                                if(snapshot.data!.codePostal != null){
-                                  codePostalUpd =
-                                    snapshot.data!.codePostal!;
+
+                              if (codePostalUpdateController.text.isEmpty) {
+                                if (snapshot.data!.codePostal != null) {
+                                  codePostalUpd = snapshot.data!.codePostal!;
                                 }
-                                
                               }
-                    
-                              if (cityUpdateController.text.isEmpty ) {
+
+                              if (cityUpdateController.text.isEmpty) {
                                 cityUpdateController.text =
                                     snapshot.data!.city!;
                               }
-                    
+
                               var myUpdateTodo = Tache(
                                   id: idArgsUpdate,
                                   title: titleUpdateController.text,
@@ -250,7 +244,9 @@ class _UpdateUserInputState extends State<UpdateUserInput> {
                               setState(() {
                                 widget.updateFunction(myUpdateTodo);
                               });
-                              Navigator.pushNamedAndRemoveUntil(context, "/homedetail",ModalRoute.withName('/'),arguments: myUpdateTodo.id);
+                              Navigator.pushNamedAndRemoveUntil(context,
+                                  "/homedetail", ModalRoute.withName('/'),
+                                  arguments: myUpdateTodo.id);
                             },
                             child: Container(
                               color: Colors.greenAccent,
@@ -264,7 +260,7 @@ class _UpdateUserInputState extends State<UpdateUserInput> {
                           )
                         ],
                       ),
-                  )
+                    )
                   : const Center(child: Text("Oups petit soucis..."));
             }),
       ),

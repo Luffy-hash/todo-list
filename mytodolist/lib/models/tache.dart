@@ -45,6 +45,13 @@ class Tache {
     };
   }
 
+  factory Tache.fromMap(Map<String, dynamic> map) {
+    return Tache(
+        title: map['title'],
+        isImportant: map['isImportant'],
+        isCompleted: map['isCompleted']);
+  }
+
   // test db
   @override
   String toString() {

@@ -212,13 +212,19 @@ class _UpdateUserInputState extends State<UpdateUserInput> {
                             }
 
                             if (streetNumberUpdateController.text.isEmpty ) {
-                              streetNumberUpd =
+                              if(snapshot.data!.streetnumber != null){
+                                streetNumberUpd =
                                   snapshot.data!.streetnumber!;
+                              }
+                              
                             }
 
                             if (codePostalUpdateController.text.isEmpty ) {
-                              codePostalUpd =
+                              if(snapshot.data!.codePostal != null){
+                                codePostalUpd =
                                   snapshot.data!.codePostal!;
+                              }
+                              
                             }
 
                             if (cityUpdateController.text.isEmpty ) {

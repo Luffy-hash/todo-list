@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:mytodolist/models/db_models.dart';
 import 'package:mytodolist/models/tache.dart';
 
@@ -133,11 +134,20 @@ class _UpdateUserInputState extends State<UpdateUserInput> {
                                     decoration: InputDecoration(
                                         hintText: snapshot.data!.streetnumber
                                             .toString()),
+                                    keyboardType: TextInputType.number,
+                                    inputFormatters: <TextInputFormatter>[
+                                    FilteringTextInputFormatter.digitsOnly
+                                  ]
                                   )
                                 : TextField(
                                     controller: streetNumberUpdateController,
                                     decoration: const InputDecoration(
-                                        hintText: "N° de rue"),
+                                        hintText: "N° de rue",
+                                        ),
+                                    keyboardType: TextInputType.number,
+                                    inputFormatters: <TextInputFormatter>[
+                                    FilteringTextInputFormatter.digitsOnly
+                                  ]
                                   ),
                           ),
                           Container(
@@ -176,11 +186,19 @@ class _UpdateUserInputState extends State<UpdateUserInput> {
                                     decoration: InputDecoration(
                                         hintText: snapshot.data!.codePostal
                                             .toString()),
+                                    keyboardType: TextInputType.number,
+                                    inputFormatters: <TextInputFormatter>[
+                                    FilteringTextInputFormatter.digitsOnly
+                                  ]
                                   )
                                 : TextField(
                                     controller: codePostalUpdateController,
                                     decoration: const InputDecoration(
                                         hintText: "Code Postal"),
+                                    keyboardType: TextInputType.number,
+                                    inputFormatters: <TextInputFormatter>[
+                                    FilteringTextInputFormatter.digitsOnly
+                                  ]
                                   ),
                           ),
                           const SizedBox(
@@ -259,7 +277,7 @@ class _UpdateUserInputState extends State<UpdateUserInput> {
                             child: Container(
                               color: Colors.greenAccent,
                               padding: const EdgeInsets.symmetric(
-                                  horizontal: 145, vertical: 10),
+                                  horizontal: 130, vertical: 10),
                               child: const Text(
                                 "Mettre à jour",
                                 style: TextStyle(fontSize: 18),

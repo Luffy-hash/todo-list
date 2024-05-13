@@ -25,6 +25,8 @@ class _DetailMeteoState extends State<DetailMeteo> {
 
   bool _mapCreated = false;
 
+  bool _changed = false;
+
   Set<Marker> location = Set();
   //image par défaut pour éviter de lancer une requête avec un nom vide
   var _icon = "10n";
@@ -50,8 +52,9 @@ class _DetailMeteoState extends State<DetailMeteo> {
       Map<String, dynamic> data = json.decode(reponse.body);
       if (mounted) {
         //si on des résultats on change la position de la caméra ainsi que le marker
-        if (data['status'] != "ZERO_RESULTS") {
+        if (data['status'] != "ZERO_RESULTS" && !_changed) {
           setState(() {
+            _changed == true;
             _coords = LatLng(data["results"][0]["geometry"]["location"]["lat"],
                 data["results"][0]["geometry"]["location"]["lng"]);
             mapController.animateCamera(CameraUpdate.newCameraPosition(
@@ -77,9 +80,9 @@ class _DetailMeteoState extends State<DetailMeteo> {
       Map<String, dynamic> meteoData = json.decode(reponse.body);
       if (mounted) {
         setState(() {
-          _moy = meteoData['main']['temp'];
-          _min = meteoData['main']['temp_min'];
-          _max = meteoData['main']['temp_max'];
+          _moy = meteoData['main']['temp'].toDouble();
+          _min = meteoData['main']['temp_min'].toDouble();
+          _max = meteoData['main']['temp_max'].toDouble();
           _icon = meteoData['weather'][0]['icon'];
         });
       }

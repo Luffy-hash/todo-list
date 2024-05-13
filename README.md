@@ -5,3 +5,6 @@ API utilisées:
 - OpenWeatherMap pour la météo
   
 - Problème pour le client web: impossible de lancer l'application sur le client web, on a pas réussi à régler ce problème
+
+- Au cas ou le projet ne compile pas, vous pouvez aller chercher le projet sur le lien GitHub suivant: https://github.com/Luffy-hash/todo-list
+
